@@ -4,6 +4,11 @@ df << Save( "C:\My Drive\CoverGlassRobot_Alarm_JMP File\CoverGlassRobotAlarm_Csv
 Wait( 3 );
 
 dt = Open( "C:\My Drive\CoverGlassRobot_Alarm_JMP File\CoverGlassRobotAlarm_Csv_File.jmp" );
+dt << Delete Column( "Column 1" );
+// Delete column 1 to Select Duplicate Rows is effectively without needing argument inside
+dt << Select Duplicate Rows();
+dt << Exclude();
+dt << Clear Select();
 
 report = Expr(
 	V List Box(
@@ -11,22 +16,29 @@ report = Expr(
 			"Developed By : Nguyen Van Giang\!nAlarm Trigger : Cover Glass Robot Failed Vacuum And Linear\!nComputer Name : FS-35235",
 			<<Set Font Size( 10 ),
 			<<Font Color( "Red" ),
-			<<Set Font Style("None")
+			<<Set Font Style( "None" )
 		),
 		dt << Graph Builder(
-			Size( 1539, 883 ),
+			Size( 1527, 773 ),
 			Fit to Window( "On" ),
 			Show Control Panel( 0 ),
 			Variables( X( :LocalTime ), Group Y( :Name ) ),
 			Elements( Smoother( X, Legend( 17 ) ), Points( X, Legend( 18 ) ) ),
-			SendToReport( Dispatch( {}, "graph title", TextEditBox, {Set Text( "" )} ) ),
-
+			SendToReport(
+				Dispatch(
+					{},
+					"LocalTime",
+					ScaleBox,
+					{Min( 3715993828.41971 ), Max( 3716015844.6299 ), Interval( "Minute" ), Inc( 15 ), Minor Ticks( 0 )}
+				),
+				Dispatch( {}, "graph title", TextEditBox, {Set Text( "" )} )
+			)
 		)
 	)
 );
 
-output = New Window("Cover Glass Robot Failed Vacuum And Linear", platform(dt, report));
-output << Save Picture( "C:\My Drive\CoverGlassRobot_Alarm_Image File\CoverGlassRobotAlarm.png", PNG);
+output = New Window( "Cover Glass Robot Failed Vacuum And Linear", Platform( dt, report ) );
+output << Save Picture( "C:\My Drive\CoverGlassRobot_Alarm_Image File\CoverGlassRobotAlarm.png", PNG );
 Wait( 3 );
 Close All(Reports, Data Tables , NoSave);
 Quit();
