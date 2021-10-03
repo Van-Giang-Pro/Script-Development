@@ -1,4 +1,4 @@
-Close All( Reports, Data Tables, NoSave );
+﻿Close All( Reports, Data Tables, NoSave );
 df = Open( "C:\My Drive\CoverGlassRobot_Alarm_CSV File\CoverGlassRobotAlarm_Csv_File.csv" );
 df << Save( "C:\My Drive\CoverGlassRobot_Alarm_JMP File\CoverGlassRobotAlarm_Csv_File.jmp" );
 Wait( 3 );
@@ -30,6 +30,12 @@ report = Expr(
 					"LocalTime",
 					ScaleBox,
 					{Min( 3715993828.41971 ), Max( 3716015844.6299 ), Interval( "Minute" ), Inc( 15 ), Minor Ticks( 0 )}
+				),
+				Dispatch(
+					{},
+					"400",
+					ScaleBox,
+					{Legend Model( 18, Properties( 0, {Line Color( 36 ), Fill Color( 0 )}, Item ID( "LocalTime", 1 ) ) )}
 				),
 				Dispatch( {}, "graph title", TextEditBox, {Set Text( "" )} )
 			)
