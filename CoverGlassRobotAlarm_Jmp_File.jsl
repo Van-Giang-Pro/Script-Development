@@ -29,7 +29,7 @@ report = Expr(
 					{},
 					"LocalTime",
 					ScaleBox,
-					{Min( 3715993828.41971 ), Max( 3716015844.6299 ), Interval( "Minute" ), Inc( 15 ), Minor Ticks( 0 )}
+					{Interval( "Minute" ), Inc( 5 ), Minor Ticks( 0 ),  Label Row Nesting( 3 )}
 				),
 				Dispatch(
 					{},
@@ -46,8 +46,8 @@ report = Expr(
 output = New Window( "Cover Glass Robot Failed Vacuum And Linear", Platform( dt, report ) );
 output << Save Picture( "C:\My Drive\CoverGlassRobot_Alarm_Image File\CoverGlassRobotAlarm.png", PNG );
 Wait( 3 );
-Close All(Reports, Data Tables , NoSave);
-Quit();
+//Close All(Reports, Data Tables , NoSave);
+//Quit();
 
 /*
 report << Append(
